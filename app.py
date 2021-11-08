@@ -8,4 +8,7 @@ app.register_blueprint(books, url_prefix='/books')
 @app.route("/")
 def hello_world():
     return "<h1>Hello, World!</h1>"
- 
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
