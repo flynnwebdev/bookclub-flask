@@ -1,5 +1,13 @@
-from flask import Blueprint, render_template
+from collections import namedtuple
+from types import SimpleNamespace
+from flask import Blueprint, render_template, request, redirect, url_for
+from flask.json import dump
 from db import Book
+
+def parse_form():
+    f = {**request.form}
+    f['yearPublished'] = int(f['yearPublished'])
+    return f
 
 books = Blueprint('books', __name__)
 
@@ -17,12 +25,20 @@ def new():
 
 @books.route('/', methods=["POST"])
 def create():
-    return "You POSTed to /books"
+    book = Book(**parse_form())
+    return redirect(url_for('books.show', book_id=book.id))
 
 @books.route('/<book_id>/edit')
 def edit(book_id):
     return render_template('books/form.html', book=Book.get(book_id))
 
-@books.route('/<book_id>', methods=["PUT"])
+@books.route('/<book_id>', methods=["POST"])
 def update(book_id):
-    pass
+    book = Book.get(book_id)
+    book.set(**parse_form())
+    return redirect(url_for('books.show', book_id=book.id))
+
+@books.route('/<book_id>/delete', methods=["POST"])
+def delete(book_id):
+    Book.delete(book_id)
+    return redirect(url_for('books.index'))

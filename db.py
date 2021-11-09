@@ -1,6 +1,6 @@
 from sqlobject import *
 
-con = connectionForURI("postgres://postgres:postgres@localhost/bookclub_flask")
+con = connectionForURI("postgres://postgres:postgres@localhost/bookclub_flask?cache=false")
 sqlhub.processConnection = con
 
 class Book(SQLObject):

@@ -1,2 +1,12 @@
 <h1>{{ book.title }}</h1>
 <h4>Published by: {{ book.publisher }}</h4>
+<hr>
+<div>
+    <a href="{{ url_for('books.index') }}"><< Back to book list</a>
+    |
+    <a href="{{ url_for('books.edit', book_id=book.id) }}">Edit</a>
+    |
+    <form style="display:inline" onsubmit="return confirm('Are you sure?')" action="{{ url_for('books.delete', book_id=book.id) }}" method="POST">
+        <input type="submit" value="Delete">
+    </form>
+</div>
