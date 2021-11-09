@@ -1,7 +1,7 @@
 from collections import namedtuple
 from types import SimpleNamespace
-from flask import Blueprint, render_template, request, redirect, url_for
-from flask.json import dump
+from flask import Blueprint, Response, render_template, request, redirect, url_for
+import jsonpickle
 from db import Book
 
 def parse_form():
@@ -13,7 +13,11 @@ books = Blueprint('books', __name__)
 
 @books.route('/')
 def index():
-    return render_template('books/index.html', books=list(Book.select()))
+    books = list(Book.select())
+    if request.mimetype == "application/json":
+        return Response(jsonpickle.encode(books, unpicklable=False), mimetype='application/json')
+    else:
+        return render_template('books/index.html', books=books)
 
 @books.route('/<book_id>')
 def show(book_id):
