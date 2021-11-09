@@ -5,7 +5,8 @@ name = "pypi"
 
 [packages]
 flask = "*"
-psycopg2 = "*"
+sqlobject = "*"
+jsonpickle = "*"
 
 [dev-packages]
 
