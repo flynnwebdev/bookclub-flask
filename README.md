@@ -2,7 +2,7 @@
 
 Minimal Python/Flask implementation of (part of) the [Rails Bookclub app](https://github.com/flynnwebdev/bookclub-2021.2) I use to teach Rails concepts in FastTrack.
 
-It only has 3 base dependencies - Flask, SQLObject and JSONPickle. The last one is only needed if you want to serve a JSON API. I've used it on the Books index route.
+It only has 4 base dependencies - Flask, SQLObject, python-dotenv and JSONPickle. The last one is only needed if you want to serve a JSON API. I've used it on the Books index route.
 
 ## Roadmap
 
@@ -29,6 +29,12 @@ Once you have `pipenv` set up, you can install all dependencies to the new envir
 
 ```sh
 pipenv install
+```
+
+Rename `.env.sample` and update it with your Postgres credentials:
+
+```sh
+mv .env.sample .env
 ```
 
 Initially, you'll need to set up your database and tables:
