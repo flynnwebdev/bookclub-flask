@@ -1,6 +1,9 @@
 from sqlobject import *
+from dotenv import dotenv_values
 
-con = connectionForURI("postgres://postgres:postgres@localhost/bookclub_flask?cache=false")
+uri = "postgres://%(PG_USER)s:%(PG_PASS)s@%(PG_HOST)s:%(PG_PORT)s/bookclub_flask" % dotenv_values()
+
+con = connectionForURI(uri)
 sqlhub.processConnection = con
 
 class Book(SQLObject):
