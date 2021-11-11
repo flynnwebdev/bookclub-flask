@@ -14,6 +14,14 @@ class Book(SQLObject):
 
 # Run this file directly to reset/create the db and ORM tables
 if __name__ == "__main__":
-    con.dropDatabase()
-    con.createEmptyDatabase()
-    Book.createTable()
+    try:
+        print("Dropping DB ...")
+        con.dropDatabase()
+    except:
+        pass
+    finally:
+        print("Creating DB ...")
+        con.createEmptyDatabase()
+        print("Creating tables ...")
+        Book.createTable()
+        print("Done.")
